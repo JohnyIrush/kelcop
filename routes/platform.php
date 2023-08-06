@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-use App\Orchid\Screens\Examples\ExampleActionsScreen;
-use App\Orchid\Screens\Examples\ExampleCardsScreen;
-use App\Orchid\Screens\Examples\ExampleChartsScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsScreen;
-use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
-use App\Orchid\Screens\Examples\ExampleScreen;
-use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
+use App\Models\Financing;
+use App\Orchid\Screens\CategoryEditScreen;
+use App\Orchid\Screens\CategoryListScreen;
+use App\Orchid\Screens\CenterEditScreen;
+use App\Orchid\Screens\CenterListScreen;
+use App\Orchid\Screens\FinancingEditScreen;
+use App\Orchid\Screens\FinancingListScreen;
 use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
+use App\Orchid\Screens\WardEditScreen;
+use App\Orchid\Screens\WardListScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 
@@ -83,20 +84,34 @@ Route::screen('roles', RoleListScreen::class)
         ->parent('platform.index')
         ->push(__('Roles'), route('platform.systems.roles')));
 
-// Example...
-Route::screen('example', ExampleScreen::class)
-    ->name('platform.example')
-    ->breadcrumbs(fn (Trail $trail) => $trail
-        ->parent('platform.index')
-        ->push('Example Screen'));
 
-Route::screen('/form/examples/fields', ExampleFieldsScreen::class)->name('platform.example.fields');
-Route::screen('/form/examples/advanced', ExampleFieldsAdvancedScreen::class)->name('platform.example.advanced');
-Route::screen('/form/examples/editors', ExampleTextEditorsScreen::class)->name('platform.example.editors');
-Route::screen('/form/examples/actions', ExampleActionsScreen::class)->name('platform.example.actions');
+//Database 
 
-Route::screen('/layout/examples/layouts', ExampleLayoutsScreen::class)->name('platform.example.layouts');
-Route::screen('/charts/examples/charts', ExampleChartsScreen::class)->name('platform.example.charts');
-Route::screen('/cards/examples/cards', ExampleCardsScreen::class)->name('platform.example.cards');
+//centers
+Route::screen('center/{center?}', CenterEditScreen::class)
+       ->name('platform.centre.edit');
 
-//Route::screen('idea', Idea::class, 'platform.screens.idea');
+Route::screen('centers', CenterListScreen::class)
+    ->name('platform.centres.list');
+
+
+//categories
+Route::screen('category/{category?}', CategoryEditScreen::class)
+       ->name('platform.category.edit');
+
+Route::screen('categories', CategoryListScreen::class)
+    ->name('platform.categories.list');
+
+//wards
+Route::screen('ward/{ward?}', WardEditScreen::class)
+       ->name('platform.ward.edit');
+
+Route::screen('wards', WardListScreen::class)
+    ->name('platform.wards.list');
+
+//financing
+Route::screen('financing/{financing?}', FinancingEditScreen::class)
+       ->name('platform.financing.edit');
+
+Route::screen('finances', FinancingListScreen::class)
+    ->name('platform.financing.list');

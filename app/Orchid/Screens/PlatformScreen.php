@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Orchid\Screens;
 
+use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 
@@ -32,7 +33,7 @@ class PlatformScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Welcome to your Orchid application.';
+        return 'Welcome to your Kelcop application.';
     }
 
     /**
@@ -53,8 +54,33 @@ class PlatformScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::view('platform::partials.update-assets'),
-            Layout::view('platform::partials.welcome'),
+            //Layout::view('platform::partials.update-assets'),
+            //Layout::view('platform::partials.welcome'),
+
+            Layout::tabs([
+                'Personal Information' => [
+                    Layout::rows([
+                        Input::make('user.name')
+                            ->type('text')
+                            ->required()
+                            ->title('Name')
+                            ->placeholder('Name'),
+    
+                        Input::make('user.email')
+                            ->type('email')
+                            ->required()
+                            ->title('Email')
+                            ->placeholder('Email'),
+                    ]),
+                ],
+                'Billing Address'      => [
+                    Layout::rows([
+                        Input::make('address')
+                            ->type('text')
+                            ->required(),
+                    ]),
+                ],
+            ]),
         ];
     }
 }
