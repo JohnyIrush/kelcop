@@ -125,10 +125,19 @@ return [
      |
      */
 
-    'resource' => [
-        'stylesheets' => [],
-        'scripts'     => [],
+    //'resource' => [
+    //    'stylesheets' => [],
+    //    'scripts'     => [],
+    //],
+
+// config/platform.php
+'resource' => [
+    'stylesheets' => [],
+    'scripts'     => [
+        '/js/dashboard.js'
     ],
+],
+
 
     /*
      |--------------------------------------------------------------------------

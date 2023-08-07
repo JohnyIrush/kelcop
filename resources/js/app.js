@@ -6,6 +6,16 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
+import { Tab, Tabs } from 'vant';
+import { Col, Row } from 'vant';
+import { Picker } from 'vant';
+import { Field, CellGroup } from 'vant';
+import { Checkbox, CheckboxGroup } from 'vant';
+import { Popup } from 'vant';
+
+// 2. Import the components style
+import 'vant/lib/index.css';
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
@@ -15,6 +25,16 @@ createInertiaApp({
         return createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue, Ziggy)
+            .use(Tab)
+            .use(Tabs)
+            .use(Col)
+            .use(Row)
+            .use(Picker)
+            .use(Field)
+            .use(CellGroup)
+            .use(Checkbox)
+            .use(CheckboxGroup)
+            .use(Popup)
             .mount(el);
     },
     progress: {

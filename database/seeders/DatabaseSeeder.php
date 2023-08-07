@@ -17,7 +17,10 @@ class DatabaseSeeder extends Seeder
             CenterSeeder::class,
             WardSeeder::class,
             CategorySeeder::class,
-            FinancingSeeder::class
+            FinancingSeeder::class,
+            ExpenseItemSeeder::class,
+            SubActivitySeeder::class
         ]);
+        $this->call(ReferenceCodeTTableSeeder::class);
     }
 }

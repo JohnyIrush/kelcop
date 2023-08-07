@@ -58,22 +58,41 @@ class PlatformScreen extends Screen
             //Layout::view('platform::partials.welcome'),
 
             Layout::tabs([
-                'Personal Information' => [
+                'Planning Data Entry' => [
+
+                ],
+                'Target Data Entry'      => [
                     Layout::rows([
-                        Input::make('user.name')
+                        Input::make('address')
                             ->type('text')
-                            ->required()
-                            ->title('Name')
-                            ->placeholder('Name'),
-    
-                        Input::make('user.email')
-                            ->type('email')
-                            ->required()
-                            ->title('Email')
-                            ->placeholder('Email'),
+                            ->required(),
                     ]),
                 ],
-                'Billing Address'      => [
+                'Detailed by Component'      => [
+                    Layout::rows([
+                        Input::make('address')
+                            ->type('text')
+                            ->required(),
+                    ]),
+                ],
+
+                'Summary by Component'      => [
+                    Layout::rows([
+                        Input::make('address')
+                            ->type('text')
+                            ->required(),
+                    ]),
+                ],
+
+                'Summary by Categories and Financing'      => [
+                    Layout::rows([
+                        Input::make('address')
+                            ->type('text')
+                            ->required(),
+                    ]),
+                ],
+
+                'Summary by Subitems'      => [
                     Layout::rows([
                         Input::make('address')
                             ->type('text')
