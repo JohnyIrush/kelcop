@@ -13,7 +13,7 @@ class CenterController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Center::all());
     }
 
     /**

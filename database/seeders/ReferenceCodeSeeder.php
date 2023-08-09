@@ -13,9 +13,9 @@ class ReferenceCodeSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('reference_code_t')->delete();
+        DB::table('reference_codes')->delete();
         
-        DB::table('reference_code_t')->insert(array (
+        DB::table('reference_codes')->insert(array (
             0 => 
             array (
                 'RefCode' => '03.07.16-01',

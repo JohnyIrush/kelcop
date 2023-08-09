@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\SubActivity;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,8 @@ class SubActivitySeeder extends Seeder
      */
     public function run(): void
     {
+        SubActivity::truncate();
+        
         $data = [
             [ 'AcNo' => 'P204', 'SubActivity' => 'DSA for 3 PMCU staff', 'Unit' => 'DSA', 'Qty' => '72', 'UnitCost' => '10500', 'Budget' => '756000', 'Item' => '2210302'],
             [ 'AcNo' => 'P212', 'SubActivity' => 'VAT for catering services (16%of 120000)', 'Unit' => 'No', 'Qty' => '1', 'UnitCost' => '19200', 'Budget' => '19200', 'Item' => '2210801'],

@@ -12,6 +12,9 @@ import { Picker } from 'vant';
 import { Field, CellGroup } from 'vant';
 import { Checkbox, CheckboxGroup } from 'vant';
 import { Popup } from 'vant';
+import { Button } from 'vant';
+import { Pagination } from 'vant';
+import { ActionSheet } from 'vant';
 
 // 2. Import the components style
 import 'vant/lib/index.css';
@@ -35,6 +38,9 @@ createInertiaApp({
             .use(Checkbox)
             .use(CheckboxGroup)
             .use(Popup)
+            .use(Button)
+            .use(Pagination)
+            .use(ActionSheet)
             .mount(el);
     },
     progress: {

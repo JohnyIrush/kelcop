@@ -13,7 +13,12 @@ class ReferenceCodeController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(ReferenceCode::all());
+    }
+
+    function targetDataEntry() 
+    {
+        return response()->json(ReferenceCode::with('mainActivities','referenceCodeUnits')->get());
     }
 
     /**

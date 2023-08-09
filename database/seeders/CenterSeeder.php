@@ -13,6 +13,8 @@ class CenterSeeder extends Seeder
      */
     public function run(): void
     {
+        Center::truncate();
+        
         $data = [
             ['Center' => '11-TNZ', 'Description' => 'Trans Nzoia County', 'Area' => ''],
             ['Center' => '10-SYA', 'Description' => 'Siaya County', 'Area' => ''],

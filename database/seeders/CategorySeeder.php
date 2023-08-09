@@ -13,6 +13,8 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        Category::truncate();
+        
         $data = [
             ['Cat' => 'IIb', 'cat_description' => 'Operating Costs'],
             ['Cat' => 'IIa', 'cat_description' => 'Salaries and Allowances'],

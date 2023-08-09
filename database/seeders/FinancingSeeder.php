@@ -13,6 +13,8 @@ class FinancingSeeder extends Seeder
      */
     public function run(): void
     {
+        Financing::truncate();
+        
         $data = [
             ['Donor' => 'D09', 'Description' => 'Participating Financial Institution (PFI)'],
             ['Donor' => 'D08', 'Description' => 'Heifer International (HI)'],

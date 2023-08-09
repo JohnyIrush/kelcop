@@ -11,6 +11,12 @@ class ExpenseItem extends Model
 
     public function subActivities()
     {
-        return $this->hasMany(SubActivity::class, 'Item');
+        return $this->hasMany(SubActivity::class, 'Item', 'Item');
     }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'Cat', 'Cat');
+    }
+
 }

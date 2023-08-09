@@ -4,9 +4,7 @@
             <van-row>
                 <van-col span="3">
                     <label>AccNo</label>
-                    <select class="form-select" aria-label="AccNo" v-model="selectedSubactivity">
-                        <option v-for="(subactivity, index) in subActivities" :key="index">{{ subactivity.AcNo }}</option>
-                    </select>
+                    <input class="form-control" type="text" aria-label="">
                 </van-col>
                 <van-col span="5">
                     <label>Refcode Subactivity</label>
@@ -137,14 +135,33 @@
                                         <input class="form-control" type="text" :value="subactivity.Budget" aria-label="">
                                     </td>
                                     <td>
-                                        <select class="form-select" aria-label="AccNo" v-model="subactivity.Item">
-                                            <option :value="subactivity.Item" selected>{{ subactivity.Item}}</option>
-                                            <option v-for="(expenseItem, index) in expenseitems" :key="index">{{
-                                                expenseItem.Item }}</option>
-                                        </select>
+                                        {{ subactivity.Item }}</td>
+                                    <td>
+
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <th scope="row">{{ newRecord.id }}</th>
+                                    <td>
+                                        <input class="form-control" type="text" :value="newRecord.SubActivity"
+                                            aria-label="">
                                     </td>
                                     <td>
-                                        {{   }}
+                                        <input class="form-control" type="text" :value="newRecord.Unit" aria-label="">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" :value="newRecord.Qty" aria-label="">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" :value="newRecord.UnitCost" aria-label="">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="text" :value="newRecord.Budget" aria-label="">
+                                    </td>
+                                    <td>
+                                        {{ newRecord.Item }}</td>
+                                    <td>
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -152,7 +169,7 @@
                     </div>
                 </van-col>
             </van-row>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-6">
                     <van-row>
                         <van-col span="6">
@@ -161,39 +178,22 @@
                             </van-button>
                         </van-col>
                         <van-col span="6">
-                            <van-button icon="plus" type="primary" @click="showDataEntryForm = !showDataEntryForm">
-                                Add
-                            </van-button>
                         </van-col>
                     </van-row>
                 </div>
                 <div class="col-6">
                     <van-row>
-                        <pagination :records="subActivities" @newRecord="filterSubActivities($event.AcNo)"></pagination>
+                       
                     </van-row>
                 </div>
             </div>
         </van-tab>
-        <van-tab title="Target Data Entry" name="b">
-            <target-data-entry />
-        </van-tab>
-        <van-tab title="Detailed by Component" name="c">
-            <detailed-component-activity-report />
-        </van-tab>
-        <van-tab title="Summary by Component" name="d">
-            <component-activity-report />
-        </van-tab>
-        <van-tab title="Summary by Categories and Financing" name="e">
-         <category-financing-report />
-        </van-tab>
-        <van-tab title="Summary by Subitems" name="f">
-            <sub-item-report />
-        </van-tab>
+        <van-tab title="Target Data Entry" name="b">content of tab 2</van-tab>
+        <van-tab title="Detailed by Component" name="c">content of tab 3</van-tab>
+        <van-tab title="Summary by Component" name="d">content of tab 1</van-tab>
+        <van-tab title="Summary by Categories and Financing" name="e">content of tab 2</van-tab>
+        <van-tab title="Summary by Subitems" name="f">content of tab 3</van-tab>
     </van-tabs>
-    <van-action-sheet v-model:show="showDataEntryForm" title="Title">
-        <div class="content">Content</div>
-        <data-entry />
-    </van-action-sheet>
 </template>
   
 <script>
@@ -201,24 +201,11 @@
 import { handleError } from 'vue';
 import { defineComponent, ref, inject } from 'vue'
 import Pagination from "../Components/Pagination.vue";
-import DataEntry from "../Components/DataEntry.vue";
-import TargetDataEntry from "../Components/TargetDataEntry.vue";
-import SubItemReport from "../Components/SubItemReport.vue";
-import CategoryFinancingReport from "../Components/CategoryFinancingReport.vue";
-import ComponentActivityReport from "../Components/ComponentActivityReport.vue";
-import DetailedComponentActivityReport from "../Components/DetailedComponentActivityReport.vue";
-
 
 
 export default defineComponent({
     components: {
-        Pagination,
-        DataEntry,
-        TargetDataEntry,
-        SubItemReport,
-        CategoryFinancingReport,
-        ComponentActivityReport,
-        DetailedComponentActivityReport
+        Pagination
     },
     setup(props, context) {
 
@@ -238,15 +225,13 @@ export default defineComponent({
         const onCancel = () => showToast('Cancel');
 
         const showPicker = ref(false);
-        const showDataEntryForm = ref(false);
 
         return {
             columns,
             onChange,
             onCancel,
             onConfirm,
-            showPicker,
-            showDataEntryForm
+            showPicker
         };
     },
     computed: {
@@ -266,28 +251,22 @@ export default defineComponent({
             selectedFinancing: {}, //current selected financing
             centres: [], //store centres fetched
             selectedCentre: {}, //current selected centre
-            expenseitems: [], // fetch expense items
-            mainActivities: [], //store main activities
-            currentMainActivity: {} // current activity
+
+            newRecord: {
+                id:'',
+                AcNo:'',
+                SubActivity: '',
+                Unit:'',
+                Qty:'',
+                UnitCost:'',
+                Budget:'',
+                Item: '',
+        
+            } // new Record holder
         }
 
     },
     methods: {
-        getItemDescription(Item)
-        {
-            //alert(Item)
-            var expenseItem = this.expenseitems.filter((expenseItem)=>{return expenseItem.Item == Item; })
-            console.log(expenseItem)
-            return expenseItem.Description;
-        },
-        //fetch centres
-        getExpenseItems() {
-            axios.get('/api/expenseitem/index')
-                .then((response) => {
-                    this.expenseitems = response.data
-                    //console.log(response)
-                })
-        },
         //fetch centres
         getCentres() {
             axios.get('/api/centre/index')
@@ -364,7 +343,6 @@ export default defineComponent({
         this.getCategories()
         this.getFinancing()
         this.getCentres()
-        this.getExpenseItems()
     },
     created() {
 

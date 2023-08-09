@@ -19,8 +19,14 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             FinancingSeeder::class,
             ExpenseItemSeeder::class,
-            SubActivitySeeder::class
+            SubActivitySeeder::class,
+            ReferenceCodeSeeder::class,
+            MainActivitySeeder::class,
+            ReferenceCodeUnitSeeder::class
         ]);
-        $this->call(ReferenceCodeTTableSeeder::class);
+        //$this->call(ReferenceCodeTTableSeeder::class);
+        //$this->call(MainactivitiesTableSeeder::class);
+        //$this->call(ReferenceCodeUnitsTableSeeder::class);
+        //$this->call(ExpenseItemTableSeeder::class);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Models\MainActivity;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,70 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Category::all());
+    }
+
+    public function summaryByCategory()
+    {
+        $mainActivities = MainActivity::with('subActivities','referenceCode', 'category', 'center', 'financing', 'referenceCodeUnits')->get();
+     
+         // Calculate total by Budget field for each group
+         $groupedMainActivitiesWithTotal = [
+         ];
+
+         $categories = [
+            
+         ];
+
+         $donors = [];
+
+         foreach ($mainActivities as $key => $mainActivity) {
+
+            if (!array_key_exists($mainActivity->Cat, $categories)) {
+                # code...
+                $categories[$mainActivity->Cat] = [
+                    'Donors' => [],
+                    'Total' => 0
+                ]; 
+             }
+
+            foreach ($mainActivity->subActivities as $key => $subactivity)
+            {
+                if (array_key_exists($mainActivity->Donor,  $categories[$mainActivity->Cat]['Donors'])) {
+                    # code...
+                    $categories[$mainActivity->Cat]['Donors'][$mainActivity->Donor]['Total'] += $subactivity->Budget;
+                    $categories[$mainActivity->Cat]['Total'] += $subactivity->Budget;
+                    
+                 }
+                 else if($mainActivity->Donor != ''){
+                    $categories[$mainActivity->Cat]['Donors'][$mainActivity->Donor] =[
+                        'Total' => 0,
+                        'mainactivity' => []
+                    ] ;
+                    $categories[$mainActivity->Cat]['Donors'][$mainActivity->Donor]['Total'] += $subactivity->Budget;
+                    $categories[$mainActivity->Cat]['Donors'][$mainActivity->Donor]['mainactivity'] = $mainActivity;
+                    $categories[$mainActivity->Cat]['Total'] += $subactivity->Budget;
+                     
+                 }
+            }
+
+             //$summary['Donors'][$subactivity->Donor]['mainactivity'] = $mainactivity; 
+//
+             //if (array_key_exists($mainActivity->Cat, $groupedMainActivitiesWithTotal)) {
+             //   # code...
+             //   array_push($groupedMainActivitiesWithTotal[$mainActivity->Cat],$summary);
+             //}
+             //else if($mainActivity->Cat != ''){
+             //   $groupedMainActivitiesWithTotal[$mainActivity->Cat] = [];
+             //   array_push($groupedMainActivitiesWithTotal[$mainActivity->Cat],$summary);
+             //}
+
+
+             
+         }
+         
+        //return response()->json($donors);
+        return response()->json($categories);
     }
 
     /**

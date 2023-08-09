@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreSubActivityRequest;
-use App\Http\Requests\UpdateSubActivityRequest;
-use App\Models\SubActivity;
+use App\Http\Requests\StoreMainActivityRequest;
+use App\Http\Requests\UpdateMainActivityRequest;
+use App\Models\MainActivity;
 
-class SubActivityController extends Controller
+class MainActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return response()->json(SubActivity::with('expenseItem')->get());
+        return response()->json(MainActivity::with('subActivities','referenceCode', 'category', 'center', 'financing', 'referenceCodeUnits')->get());
     }
 
     /**
@@ -27,7 +27,7 @@ class SubActivityController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSubActivityRequest $request)
+    public function store(StoreMainActivityRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class SubActivityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SubActivity $subActivity)
+    public function show(MainActivity $mainActivity)
     {
         //
     }
@@ -43,7 +43,7 @@ class SubActivityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SubActivity $subActivity)
+    public function edit(MainActivity $mainActivity)
     {
         //
     }
@@ -51,7 +51,7 @@ class SubActivityController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubActivityRequest $request, SubActivity $subActivity)
+    public function update(UpdateMainActivityRequest $request, MainActivity $mainActivity)
     {
         //
     }
@@ -59,7 +59,7 @@ class SubActivityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SubActivity $subActivity)
+    public function destroy(MainActivity $mainActivity)
     {
         //
     }

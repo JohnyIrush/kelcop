@@ -5,16 +5,34 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreExpenseItemRequest;
 use App\Http\Requests\UpdateExpenseItemRequest;
 use App\Models\ExpenseItem;
+use App\Models\SubActivity;
 
 class ExpenseItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
+
+     public function index()
+     {
+         $subActivities = SubActivity::with('expenseItem')->get();
+     
+         // Grouping the subActivities by Item
+         $groupedSubActivities = $subActivities->groupBy('Item');
+     
+         // Calculate total by Budget field for each group
+         $groupedSubActivitiesWithTotal = $groupedSubActivities->map(function ($group) {
+             $totalBudget = $group->sum('Budget');
+             return [
+                 'item' => $group->first()->expenseItem, // Assuming 'expenseItem' relationship has the item name
+                 'totalBudget' => $totalBudget,
+                 'subActivities' => $group,
+             ];
+         });
+     
+         return response()->json($groupedSubActivitiesWithTotal);
+     }
+     
 
     /**
      * Show the form for creating a new resource.

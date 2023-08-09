@@ -13,7 +13,7 @@ class FinancingController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Financing::all());
     }
 
     /**

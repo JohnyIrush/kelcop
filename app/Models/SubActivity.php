@@ -11,6 +11,11 @@ class SubActivity extends Model
 
     public function expenseItem()
     {
-        return $this->belongsTo(ExpenseItem::class, 'Item');
+        return $this->hasOne(ExpenseItem::class, 'Item', 'Item');
     }
+
+    //public function subActivities()
+    //{
+    //    return $this->hasMany(SubActivity::class, 'AcNo', 'AcNo');
+    //}
 }
