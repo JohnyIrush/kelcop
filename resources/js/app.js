@@ -15,6 +15,7 @@ import { Popup } from 'vant';
 import { Button } from 'vant';
 import { Pagination } from 'vant';
 import { ActionSheet } from 'vant';
+import { Loading } from 'vant';
 
 // 2. Import the components style
 import 'vant/lib/index.css';
@@ -41,6 +42,7 @@ createInertiaApp({
             .use(Button)
             .use(Pagination)
             .use(ActionSheet)
+            .use(Loading)
             .mount(el);
     },
     progress: {
