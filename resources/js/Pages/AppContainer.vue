@@ -1,6 +1,14 @@
 <template>
     <van-tabs v-model:active="activeName">
         <van-tab title="Planning Data Entry" name="a">
+            <div class="row mt-4 mb-4 d-flex flex-row">
+                <div class="me-auto">
+                    <h1>Planning Data Entry</h1>
+                </div>
+                <div class="ms-auto">
+                    <p>FY: {{ currentMainActivity.FY }}</p>
+                </div>
+            </div>
             <van-row>
                 <van-col span="3">
                     <label>AccNo</label>
@@ -169,18 +177,23 @@
                 </van-col>
             </van-row>
             <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                     <van-row>
-                        <van-col span="6">
-                            <van-button icon="plus" type="success">
+                        <van-col span="12">
+                            <van-button icon="records" type="success">
                                 Save
                             </van-button>
                         </van-col>
-                        <van-col span="6">
+                        <van-col span="12">
                             <van-button icon="plus" type="primary" @click="showDataEntryForm = !showDataEntryForm">
                                 Add
                             </van-button>
                         </van-col>
+                    </van-row>
+                </div>
+                <div class="col-2">
+                    <van-row>
+                            <van-button icon="delete-o" type="danger">Delete</van-button>
                     </van-row>
                 </div>
                 <div class="col-6">
@@ -288,7 +301,7 @@ export default defineComponent({
             expenseitems: [], // fetch expense items
 
             mainActivities: [], //store main activities
-            currentMainActivity: {} // current activity
+            currentMainActivity: {}, // current activity
         }
 
     },

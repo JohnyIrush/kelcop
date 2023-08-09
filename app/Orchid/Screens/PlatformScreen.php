@@ -55,9 +55,8 @@ class PlatformScreen extends Screen
     {
         return [
             //Layout::view('platform::partials.update-assets'),
-            //Layout::view('platform::partials.welcome'),
-
-            Layout::tabs([
+            Layout::view('platform::partials.welcome'),
+            /*Layout::tabs([
                 'Planning Data Entry' => [
 
                 ],
@@ -99,7 +98,7 @@ class PlatformScreen extends Screen
                             ->required(),
                     ]),
                 ],
-            ]),
+            ]),*/
         ];
     }
 }

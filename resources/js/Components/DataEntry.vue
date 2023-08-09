@@ -2,18 +2,18 @@
     <van-row>
         <van-col span="3">
             <label>AccNo</label>
-            <input class="form-control" type="text" aria-label="">
+            <input class="form-control" type="text" aria-label="" v-model="newRecord.AcNo">
         </van-col>
         <van-col span="5">
             <label>Refcode Subactivity</label>
-            <select class="form-select" aria-label="Refcode Subactivity" v-model="selectedReferenceCode">
+            <select class="form-select" aria-label="Refcode Subactivity" v-model="newRecord.RefCode">
                 <option v-for="(referencecode, index) in referenceCodes" :key="index" :value="referencecode">{{
                     referencecode.RefCode }}</option>
             </select>
         </van-col>
         <van-col span="3">
             <label>Category</label>
-            <select class="form-select" aria-label="Refcode Subactivity" v-model="selectedCategory">
+            <select class="form-select" aria-label="Refcode Subactivity" v-model="newRecord.Cat">
                 <option v-for="(category, index) in categories" :key="index" :value="category">{{ category.Cat }}
                 </option>
             </select>
@@ -21,7 +21,7 @@
         </van-col>
         <van-col span="4">
             <label>Financing</label>
-            <select class="form-select" aria-label="Financing" v-model="selectedFinancing">
+            <select class="form-select" aria-label="Financing" v-model="newRecord.Donor">
                 <option v-for="(finance, index) in financing" :key="index" :value="finance">{{ finance.Donor }}
                 </option>
             </select>
@@ -29,7 +29,7 @@
         </van-col>
         <van-col span="3">
             <label>Centre</label>
-            <select class="form-select" aria-label="Centres" v-model="selectedCentre">
+            <select class="form-select" aria-label="Centres" v-model="newRecord.Centre">
                 <option v-for="(centre, index) in centres" :key="index" :value="centre">{{ centre.Center }}</option>
             </select>
             <label>{{ selectedCentre.Description }}</label>
@@ -37,17 +37,44 @@
     </van-row>
     <van-row>
         <van-col span="4">
-            <van-field label="Location" placeholder="Location" label-align="top" />
+            <van-field label="Location" placeholder="Location" label-align="top" v-model="newRecord.Location" />
         </van-col>
         <van-col span="3">
-            <van-field v-model="value" label="Officer" placeholder="Officer" label-align="top" />
+            <van-field label="Officer" placeholder="Officer" label-align="top" v-model="newRecord.Officer" />
         </van-col>
-        <van-col span="8">
-            <van-checkbox-group v-model="checked" direction="horizontal">
-                <van-checkbox name="a">Q1</van-checkbox>
-                <van-checkbox name="b">Q2</van-checkbox>
-                <van-checkbox name="c">Q3</van-checkbox>
-                <van-checkbox name="d">Q4</van-checkbox> </van-checkbox-group>
+        <van-col span="4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="newRecord.Q1" id="q1">
+                <label class="form-check-label" for="q1">
+                    Q1
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="newRecord.Q2" id="q2">
+                <label class="form-check-label" for="q2">
+                    Q2
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="newRecord.Q3" id="3">
+                <label class="form-check-label" for="q3">
+                    Q3
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="newRecord.Q4" id="q4">
+                <label class="form-check-label" for="q4">
+                    Q4
+                </label>
+            </div>
+        </van-col>
+        <van-col span="3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="newRecord.Flag" id="flag">
+                <label class="form-check-label" for="q1">
+                    Flag
+                </label>
+            </div>
         </van-col>
     </van-row>
     <van-row>
@@ -109,8 +136,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(subactivity, index) in currentSubActivies" :key="index">
-                            <th scope="row">{{ subactivity.id }}</th>
+                        <tr v-for="(subactivity, index) in newRecord.sub_activities" :key="index">
+                            <th scope="row">{{ index }}</th>
                             <td>
                                 <input class="form-control" type="text" :value="subactivity.SubActivity" aria-label="">
                             </td>
@@ -133,21 +160,24 @@
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row">{{ newRecord.id }}</th>
+                            <th scope="row"><van-button icon="plus" type="primary" />Add</th>
                             <td>
-                                <input class="form-control" type="text" :value="newRecord.SubActivity" aria-label="">
+                                <input type="hidden" name="AcNo" v-model="newRecord.AcNo">
+                                <input class="form-control" type="text" :value="subActivityNewrecord.SubActivity"
+                                    aria-label="">
                             </td>
                             <td>
-                                <input class="form-control" type="text" :value="newRecord.Unit" aria-label="">
+                                <input class="form-control" type="text" :value="subActivityNewrecord.Unit" aria-label="">
                             </td>
                             <td>
-                                <input class="form-control" type="text" :value="newRecord.Qty" aria-label="">
+                                <input class="form-control" type="text" :value="subActivityNewrecord.Qty" aria-label="">
                             </td>
                             <td>
-                                <input class="form-control" type="text" :value="newRecord.UnitCost" aria-label="">
+                                <input class="form-control" type="text" :value="subActivityNewrecord.UnitCost"
+                                    aria-label="">
                             </td>
                             <td>
-                                <input class="form-control" type="text" :value="newRecord.Budget" aria-label="">
+                                <input class="form-control" type="text" :value="subActivityNewrecord.Budget" aria-label="">
                             </td>
                             <td>
                                 {{ newRecord.Item }}</td>
@@ -160,6 +190,40 @@
             </div>
         </van-col>
     </van-row>
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Why is activity required and expected
+                    benefits</label>
+                <textarea class="form-control" :value="newRecord.Why_benefits" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">How will the activity be undertaken, what are
+                    the steps</label>
+                <textarea class="form-control" :value="newRecord.How_done" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">What are benefiaciaries roles and output</label>
+                <textarea class="form-control" :value="newRecord.Ben_role" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">What are benefiaciaries contribution</label>
+                <textarea class="form-control" :value="newRecord.Ben_contribution" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
     <div class="row mt-3">
         <div class="col-6">
             <van-row>
@@ -235,22 +299,44 @@ export default defineComponent({
             selectedFinancing: {}, //current selected financing
             centres: [], //store centres fetched
             selectedCentre: {}, //current selected centre
-
             newRecord: {
-                id: '',
+                AcNo: '',
+                RefCode: '',
+                Centre: '',
+                Location: '',
+                Officer: '',
+                Q1: false,
+                Q2: false,
+                Q3: false,
+                Q4: false,
+                Cat: '',
+                Donor: '',
+                FY: '',
+                Why_benefits: '',
+                How_done: '',
+                Ben_role: '',
+                Ben_contribution: '',
+                sub_activities: []
+            },
+            subActivityNewrecord: {
                 AcNo: '',
                 SubActivity: '',
                 Unit: '',
-                Qty: '',
-                UnitCost: '',
-                Budget: '',
-                Item: '',
+                Qty: 0,
+                UnitCost: 0,
+                Budget: 0,
+                Item: 0
 
             } // new Record holder
         }
 
     },
     methods: {
+        //Add new record
+        addNewRecord()
+        {
+
+        },
         //fetch centres
         getCentres() {
             axios.get('/api/centre/index')

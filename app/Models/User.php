@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Orchid\Presenters\UserPresenter;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -58,4 +59,26 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    /**
+     * @return UserPresenter
+     */
+    public function presenter()
+    {
+        return new UserPresenter($this);
+    }
+
+
+
+    public static function hasAccess()
+    {
+        return true;
+    }
+
+    public static function hasAnyAccess()
+    {
+        return true;
+    }
+
 }
